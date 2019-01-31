@@ -49,7 +49,7 @@ public class TesteDocumentoService {
 		doc.setCorpo("Corpo texto grande312111131321321 ");
 		doc.setData("2019-01-22 15:33:00");
 		
-//		documentos.add(doc);
+		documentos.add(doc);
 		documentos.add(doc1);
 		
 				
@@ -61,8 +61,14 @@ public class TesteDocumentoService {
 		
 		//teste
 		
-		assertEquals(0,documentos.size());
+		assertEquals(2,documentos.size());
 	}
-	
+	public void TestaValidacaoDoId(String id) {
+		//Verificar se a string recebida é um Long para passar como parametro para buscar um documento.
+		
+	}
+	public void TestaValidacaoDoCampoParaUpdate(String Campo) {
+		//veirifcar se o campo é titulo ou corpo e validar as regras de negocio
+	}
 
 }
