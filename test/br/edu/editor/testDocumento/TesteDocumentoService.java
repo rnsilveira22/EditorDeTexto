@@ -1,9 +1,7 @@
 
 package br.edu.editor.testDocumento;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -12,63 +10,66 @@ import br.edu.editor.service.DocumentoService;
 
 public class TesteDocumentoService {
 	
-	@Test
-	public void esperadoDocumentoValidoParaSalvar() {
-		// cenário
-		Documento doc = new Documento();
-		doc.setId((long)1);
-		doc.setTitulo("texto titulo pequeno");
-		doc.setCorpo("Corpo texto pequeno");
-		doc.setData("2019-01-22 18:32:00");
-		
+	// TESTES UNITÁRIOS
 	
-		//ação
-		DocumentoService docServ = new DocumentoService();
-		Documento docFinal = docServ.salvar(doc);
+	@Test (expected = RuntimeException.class)
+	public void esperadoRetornarErroTituloInvalido() {
+		Documento documento = new Documento();
+		documento.setTitulo(null);
+		documento.setCorpo("Corpo texto pequeno");
 		
+		DocumentoService documentoService = new DocumentoService();
+		assertEquals("Titulo do Documento inválido!",documento, documentoService.salvar(documento));
+
+	}
+	@Test (expected = RuntimeException.class)
+	public void esperadoRetornarErroCorpoInvalido() {
+		Documento documento = new Documento();
+		documento.setTitulo("Meu primeiro documento");
+		documento.setCorpo(null);
 		
-		// teste
-		assertNotNull(docFinal);
-		assertEquals(docFinal.getTitulo(), doc.getTitulo());
+		DocumentoService documentoService = new DocumentoService();
+		assertEquals("Corpo do Documento inválido!",documento, documentoService.salvar(documento));
+	}
+	@Test (expected = RuntimeException.class)
+	public void esperadoRetornarErroQuandoDocumentoTiverUmId() {
+		Documento documento = new Documento();
+		documento.setId(1l);
+		documento.setTitulo("Meu primeiro documento");
+		documento.setCorpo("Texto do corpo do meu primeiro documento");
 		
+		DocumentoService documentoService = new DocumentoService();
+		assertEquals("Já exite um documento com esse ID.",documento, documentoService.salvar(documento));
+
+	}
+	public void esperadoRetornarErroQuandoDocumentoNenhumTiverId() {
+		Documento documento = new Documento();
+		documento.setId(null);
+		documento.setTitulo("Meu primeira alteração ");
+		documento.setCorpo("Texto do corpo do meu primeiro documento sendo Alterado ");
+		
+		DocumentoService documentoService = new DocumentoService();
+		assertEquals("Esperado um Id valido.",documento, documentoService.atualizar(documento));
+	}
+	
+	
+	// TESTE DE INTEGRAÇÃO MOKADOS
+	
+	public void esperadoRetornarErroSeDocumentoForInvalido() {
 		
 	}
-	@Test
-	public void esperadoListaTodosDocumentos() {
-		//cenario
-		ArrayList<Documento> documentos = new ArrayList<>();
-		Documento doc1 = new Documento();
-		doc1.setId((long)1);
-		doc1.setTitulo("texto titulo pequeno");
-		doc1.setCorpo("Corpo texto pequeno");
-		doc1.setData("2019-01-22 18:32:00");
-		
-		Documento doc = new Documento();
-		doc.setId((long)2);
-		doc.setTitulo("texto titulo grande 123456487979/*");
-		doc.setCorpo("Corpo texto grande312111131321321 ");
-		doc.setData("2019-01-22 15:33:00");
-		
-		documentos.add(doc);
-		documentos.add(doc1);
-		
-				
-		//acao
-		
-		DocumentoService docServ = new DocumentoService();
-		docServ.listar(documentos);
-		
-		
-		//teste
-		
-		assertEquals(2,documentos.size());
-	}
-	public void TestaValidacaoDoId(String id) {
-		//Verificar se a string recebida é um Long para passar como parametro para buscar um documento.
+	public void esperadoRetornarListaDeDocumentoSalvos() {
 		
 	}
-	public void TestaValidacaoDoCampoParaUpdate(String Campo) {
-		//veirifcar se o campo é titulo ou corpo e validar as regras de negocio
+	public void esperadoAtualizarDocumentoValido() {
+		
 	}
+	public void esperadoExcluirDocumentoPeloIdValido() {
+		
+	}
+	public void esperadoRetornarListaDocumentoBuscadosPeloTitulo() {
+		
+	}
+	
 
 }

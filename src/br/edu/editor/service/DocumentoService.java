@@ -1,42 +1,48 @@
 package br.edu.editor.service;
 
-import java.util.ArrayList;
-
 import br.edu.editor.model.Documento;
 
 public class DocumentoService {
 
-	private boolean validaTitulo(String titulo) {
-		if (titulo == null || titulo == "" || titulo.length() > 50) {
-			System.out.println("Titulo Invalido");
-			return false;
+	private void validaTitulo(Documento documento) {
+		if (documento.getTitulo() == null || documento.getTitulo().isEmpty() || documento.getTitulo().length() > 50) {
+			throw new RuntimeException("Titulo do Documento inválido!");
 		}
-		return true;
 	}
 
-	private boolean validaCorpo(String corpo) {
-		if (corpo == null || corpo == "" || corpo.length() > 500) {
-			System.out.println("Corpo Invalido");
-			return false;
+	private void validaCorpo(Documento documento) {
+		if (documento.getCorpo() == null || documento.getCorpo().isEmpty() || documento.getCorpo().length() > 500) {
+			throw new RuntimeException("Corpo do Documento inválido!");
 		}
-
-		return true;
 	}
 
-	public Documento salvar(Documento doc) {
-		if (validaTitulo(doc.getTitulo()) == true && validaCorpo(doc.getCorpo()) == true) {
+	private void validaDocumentoComId(Documento documento) {
 
-			return doc;
+		if (documento.getId() != null) {
+			throw new RuntimeException("Já exite um documento com esse ID.");
 		}
-		return null;
+
+	}
+	private void validaDocumentoSemId(Documento documento) {
+		if(documento.getId()==null) {
+			throw new RuntimeException("Esperado um Id valido.");
+		}
 	}
 
-	public ArrayList<Documento> listar(ArrayList<Documento> documentos) {
-		if (documentos != null) {
-			return documentos;
-		}
-		return null;
+	public Documento salvar(Documento documento) {
+		validaDocumentoComId(documento);
+		validaTitulo(documento);
+		validaCorpo(documento);
 
+		return documento;
+
+	}
+
+	public Documento atualizar(Documento documento) {
+		validaDocumentoSemId(documento);
+		validaTitulo(documento);
+		validaCorpo(documento);
+		return documento;
 	}
 
 }
