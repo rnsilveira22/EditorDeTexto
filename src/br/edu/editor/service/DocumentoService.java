@@ -40,8 +40,11 @@ public class DocumentoService {
 
 	public Documento atualizar(Documento documento) {
 		validaDocumentoSemId(documento);
+		System.out.println("Validou o ID");
 		validaTitulo(documento);
+		System.out.println("Validou Titulo");
 		validaCorpo(documento);
+		System.out.println("Validou Corpo");
 		return documento;
 	}
 

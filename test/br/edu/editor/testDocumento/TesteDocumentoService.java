@@ -42,34 +42,35 @@ public class TesteDocumentoService {
 		assertEquals("Já exite um documento com esse ID.",documento, documentoService.salvar(documento));
 
 	}
+	
+	@Test(expected=RuntimeException.class)
 	public void esperadoRetornarErroQuandoDocumentoNenhumTiverId() {
+		
 		Documento documento = new Documento();
 		documento.setId(null);
-		documento.setTitulo("Meu primeira alteração ");
-		documento.setCorpo("Texto do corpo do meu primeiro documento sendo Alterado ");
-		
 		DocumentoService documentoService = new DocumentoService();
+		
 		assertEquals("Esperado um Id valido.",documento, documentoService.atualizar(documento));
 	}
 	
 	
 	// TESTE DE INTEGRAÇÃO MOKADOS
 	
-	public void esperadoRetornarErroSeDocumentoForInvalido() {
-		
-	}
-	public void esperadoRetornarListaDeDocumentoSalvos() {
-		
-	}
-	public void esperadoAtualizarDocumentoValido() {
-		
-	}
-	public void esperadoExcluirDocumentoPeloIdValido() {
-		
-	}
-	public void esperadoRetornarListaDocumentoBuscadosPeloTitulo() {
-		
-	}
+//	public void esperadoRetornarErroSeDocumentoForInvalido() {
+//		
+//	}
+//	public void esperadoRetornarListaDeDocumentoSalvos() {
+//		
+//	}
+//	public void esperadoAtualizarDocumentoValido() {
+//		
+//	}
+//	public void esperadoExcluirDocumentoPeloIdValido() {
+//		
+//	}
+//	public void esperadoRetornarListaDocumentoBuscadosPeloTitulo() {
+//		
+//	}
 	
 
 }
