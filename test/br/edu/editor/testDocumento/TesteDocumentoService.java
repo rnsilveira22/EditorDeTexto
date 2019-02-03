@@ -4,10 +4,15 @@ package br.edu.editor.testDocumento;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
+import br.edu.editor.dao.DocumentoDao;
 import br.edu.editor.model.Documento;
 import br.edu.editor.service.DocumentoService;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TesteDocumentoService {
 	
 	// TESTES UNITÁRIOS
@@ -42,7 +47,6 @@ public class TesteDocumentoService {
 		assertEquals("Já exite um documento com esse ID.",documento, documentoService.salvar(documento));
 
 	}
-	
 	@Test(expected=RuntimeException.class)
 	public void esperadoRetornarErroQuandoDocumentoNenhumTiverId() {
 		
@@ -56,7 +60,14 @@ public class TesteDocumentoService {
 	
 	// TESTE DE INTEGRAÇÃO MOKADOS
 	
+//	@Mock
+//	private DocumentoService documentoServiceMock;
+//	
 //	public void esperadoRetornarErroSeDocumentoForInvalido() {
+//		Documento documento = new Documento();
+//		documento.setTitulo("");
+//		documento.setCorpo("");
+//		when(documentoServiceMock.salvar(documento).thenReturn(documento));
 //		
 //	}
 //	public void esperadoRetornarListaDeDocumentoSalvos() {

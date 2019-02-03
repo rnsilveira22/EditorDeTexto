@@ -1,5 +1,8 @@
 package br.edu.editor.service;
 
+import java.util.ArrayList;
+
+import br.edu.editor.dao.DocumentoDao;
 import br.edu.editor.model.Documento;
 
 public class DocumentoService {
@@ -23,8 +26,9 @@ public class DocumentoService {
 		}
 
 	}
+
 	private void validaDocumentoSemId(Documento documento) {
-		if(documento.getId()==null) {
+		if (documento.getId() == null) {
 			throw new RuntimeException("Esperado um Id valido.");
 		}
 	}
@@ -33,19 +37,31 @@ public class DocumentoService {
 		validaDocumentoComId(documento);
 		validaTitulo(documento);
 		validaCorpo(documento);
-
-		return documento;
-
+		DocumentoDao documentoDao = new DocumentoDao();
+		return documentoDao.salvar(documento);
 	}
 
 	public Documento atualizar(Documento documento) {
 		validaDocumentoSemId(documento);
-		System.out.println("Validou o ID");
 		validaTitulo(documento);
-		System.out.println("Validou Titulo");
 		validaCorpo(documento);
-		System.out.println("Validou Corpo");
 		return documento;
 	}
 
+	public Documento buscarPorid (Documento documento) {
+		DocumentoDao documentoDao = new DocumentoDao();
+		 return documento = documentoDao.buscarPorId(documento);
+	}
+
+	public ArrayList<Documento> buscarPorTitulo(Documento documento) {
+		DocumentoDao documentoDao = new DocumentoDao();
+		ArrayList<Documento> documentos = new ArrayList<>();
+		 return documentos = documentoDao.buscarPorTitulo(documento);
+	}
+
+	public void excluir(Documento documento) {
+		DocumentoDao documentoDao = new DocumentoDao();
+		documentoDao.excluir(documento);
+		
+	}
 }
